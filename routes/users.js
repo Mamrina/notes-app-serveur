@@ -39,12 +39,30 @@ router.post('/login', async (req, res) => {
     }
     // const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: '1h',
+      expiresIn: '9h',
     });
     res.status(200).json({ token });
   } catch (error) {
     res.status(500).json({ error: 'Login failed' });
   }
 });
+
+// Update user details
+router.put('/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { username, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Update user details in the database
+    const result = await dbQuery('UPDATE users SET username = ?, password = ? WHERE id = ?', [username, hashedPassword, userId]);
+    
+    res.json({ message: "User updated", result });
+  } catch (error) {
+    res.status(500).json({ error: 'Update failed' });
+  }
+});
+
+
 
 export default router;

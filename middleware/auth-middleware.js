@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 // Middleware : intercepte la req et vérifie le token fourni
-// si tout se passe bien o passe la main au contrôleur grace à next()
+// si tout se passe bien on passe la main au contrôleur grace à next()
 // si problème on répond avec une erreur et le contrôleur ne sera pas déclenché.
 export default function verifyToken(req, res, next) {
   // le token devrait être présenté dans le header

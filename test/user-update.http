@@ -1,0 +1,7 @@
+PUT http://localhost:3000/users/24
+content-type: application/json
+
+{
+  "username": "fake",
+  "password": "fake"
+}

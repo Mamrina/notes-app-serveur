@@ -1,6 +1,6 @@
-PUT http://localhost:3000/notes/7
+PUT http://localhost:3000/notes/38
 content-type: application/json
 
 {
-  "text": "modified using rest testing tool"
+  "text": "modified using rest testing tool ok"
 }
