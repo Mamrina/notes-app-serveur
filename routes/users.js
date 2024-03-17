@@ -18,7 +18,7 @@ router.get('/', verifyToken, function (req, res, next) {
 
 // Register a User
 // In Rest that means post a new User
-router.post('/',verifyToken, async function (req, res) {
+router.post('/', async function (req, res) {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -27,7 +27,7 @@ router.post('/',verifyToken, async function (req, res) {
 });
 
 // Login
-router.post('/login',verifyToken, async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
     const [users] = await dbQuery('SELECT * FROM users WHERE username = ?', [username]);
@@ -42,7 +42,7 @@ router.post('/login',verifyToken, async (req, res) => {
     }
     // const token = jwt.sign({ userId: user._id }, 'your-secret-key', {
     const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY, {
-      expiresIn: '9h',
+      expiresIn: '1h',
     });
     res.status(200).json({ token });
   } catch (error) {
@@ -65,7 +65,5 @@ router.put('/:id',verifyToken, async (req, res) => {
     res.status(500).json({ error: 'Update failed' });
   }
 });
-
-
 
 export default router;
