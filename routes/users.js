@@ -6,16 +6,19 @@ import jwt from 'jsonwebtoken';
 
 import { dbQuery } from '../db.js';
 
+// Authentification Middelware
+import verifyToken from '../middleware/auth-middleware.js';
+
 const router = Router();
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
+router.get('/', verifyToken, function (req, res, next) {
   res.send('respond with a resource');
 });
 
 // Register a User
 // In Rest that means post a new User
-router.post('/', async function (req, res) {
+router.post('/',verifyToken, async function (req, res) {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -24,7 +27,7 @@ router.post('/', async function (req, res) {
 });
 
 // Login
-router.post('/login', async (req, res) => {
+router.post('/login',verifyToken, async (req, res) => {
   try {
     const { username, password } = req.body;
     const [users] = await dbQuery('SELECT * FROM users WHERE username = ?', [username]);
@@ -48,7 +51,7 @@ router.post('/login', async (req, res) => {
 });
 
 // Update user details
-router.put('/:id', async (req, res) => {
+router.put('/:id',verifyToken, async (req, res) => {
   try {
     const userId = req.params.id;
     const { username, password } = req.body;
