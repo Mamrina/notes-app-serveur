@@ -1,7 +1,7 @@
-PUT http://localhost:3000/users/24
+PUT http://localhost:3000/users/6
 content-type: application/json
 
 {
-  "username": "user name",
-  "password": "fakeuser"
+  "username": "toto",
+  "password": "1234"
 }

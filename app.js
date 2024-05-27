@@ -1,13 +1,14 @@
-import 'dotenv/config';
+import "dotenv/config";
 
-import express, { json, urlencoded } from 'express';
+import express, { json, urlencoded } from "express";
 // var cors = require('cors');
-import cors from 'cors';
-import bodyParser from 'body-parser';
+import cors from "cors";
+import bodyParser from "body-parser";
 
 // importation du code des sous routeurs
-import notesRouter from './routes/notes.js';
-import usersRouter from './routes/users.js';
+import notesRouter from "./routes/notes.js";
+import usersRouter from "./routes/users.js";
+import categoriesRouter from "./routes/categories.js";
 
 var app = express();
 
@@ -17,11 +18,12 @@ app.use(bodyParser.json());
 app.use(json());
 
 // Initialisation du Router
-app.use('/notes', notesRouter);
-app.use('/users/', usersRouter);
-app.get('/', (req, res) => res.send('et oui on vous souhaite la bienvenue!'));
-app.get('*', function(req, res){
-  res.status(404).send('what???');
+app.use("/notes", notesRouter);
+app.use("/users/", usersRouter);
+app.use("/categories/", categoriesRouter);
+app.get("/", (req, res) => res.send("et oui on vous souhaite la bienvenue!"));
+app.get("*", function (req, res) {
+  res.status(404).send("what???");
 });
 
 // prevent process to crash on exceptions.

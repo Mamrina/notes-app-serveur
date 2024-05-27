@@ -3,9 +3,7 @@
 import { Router } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
 import { dbQuery } from '../db.js';
-
 // Authentification Middelware
 import verifyToken from '../middleware/auth-middleware.js';
 
