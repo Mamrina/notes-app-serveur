@@ -23,6 +23,7 @@ export class NoteController {
       const newNote = {
         text: req.body.text,
         user_id: userId,
+        category_id: req.body.categoryId
       };
       console.log(
         "noteController create with text : ",
@@ -31,8 +32,8 @@ export class NoteController {
         userId
       );
       const [results, fields] = await dbQuery(
-        "INSERT INTO notes (text, user_id) VALUE (?, ?)",
-        [newNote.text, newNote.user_id]
+        "INSERT INTO notes (text, user_id, category_id) VALUE (?, ?, ?)",
+        [newNote.text, newNote.user_id, newNote.category_id]
       );
       res.json({ message: "note added", results: results });
     } catch (error) {
@@ -43,9 +44,10 @@ export class NoteController {
 
   async update(req, res) {
     try {
-      const [results] = await dbQuery("UPDATE notes SET text = ? WHERE id= ?", [
+      const [results] = await dbQuery("UPDATE notes SET text = ?, category_id WHERE id= ?", [
         req.body.text,
-        req.params.id,
+        req.params.category_id,
+        req.params.id
       ]);
       res.json({ message: "note updated", results: results });
     } catch (error) {

@@ -57,4 +57,4 @@ app.get("*", function (req, res) {
 //     res.json({ message: err.message });
 // });
 
-app.listen(process.env.SERVER_PORT, () => console.log("Serveur API démarré"));
+app.listen(process.env.SERVER_PORT, () => console.log("Serveur API démarré, c'est ok !"));

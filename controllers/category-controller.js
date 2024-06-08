@@ -3,26 +3,27 @@ import { dbQuery } from "../db.js";
 export class CategoryController {
   async listAll(req, res) {
     console.log("categoryController should list them all");
-    const [results, fields] = await dbQuery("SELECT * FROM categories");
+    const [results, fields] = await dbQuery(
+      "SELECT * FROM categories");
     res.send(results);
   }
 
   async create(req, res) {
     const newCategory = {
-      name: req.body.name,
+      text: req.body.text,
     };
-    console.log("categoryController create with name : ", newCategory.name);
+    console.log("categoryController create with name : ", newCategory.text);
     const [results, fields] = await dbQuery(
-      "INSERT INTO categories (name) VALUES (?)",
-      [newCategory.name]
+      "INSERT INTO categories (text) VALUES (?)",
+      [newCategory.text]
     );
     res.json({ message: "category added", results: results });
   }
 
   async update(req, res) {
     const [results] = await dbQuery(
-      "UPDATE categories SET name = ? WHERE id = ?",
-      [req.body.name, req.params.id]
+      "UPDATE categories SET text = ? WHERE id = ?",
+      [req.body.text, req.params.id]
     );
     res.json({ message: "category updated", results: results });
   }
