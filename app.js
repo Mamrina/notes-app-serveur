@@ -19,8 +19,8 @@ app.use(json());
 
 // Initialisation du Router
 app.use("/notes", notesRouter);
-app.use("/users/", usersRouter);
-app.use("/categories/", categoriesRouter);
+app.use("/users", usersRouter);
+app.use("/categories", categoriesRouter);
 app.get("/", (req, res) => res.send("et oui on vous souhaite la bienvenue!"));
 app.get("*", function (req, res) {
   res.status(404).send("what???");
